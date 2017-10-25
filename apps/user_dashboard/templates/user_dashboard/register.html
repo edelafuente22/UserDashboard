@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Registration Page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #topbar{
+                display: block;
+                border-bottom: black solid 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topbar">
+            <h1>Test App</h1>
+            <h4><a href="/">Home</a></h4>
+            <h4><a href="/signin">Sign In</a></h4>
+        </div>
+        <div id="register">
+            <h1>Register</h1>
+            <form action='/process_registration' method='POST'>
+                {% csrf_token %}
+                <label for="email">Email Address: <input type="email" name="email"></label><br><br>
+                <label for="first_name">First Name: <input type="text" name="first_name"></label><br><br>
+                <label for="last_name">Last Name: <input type="text" name="last_name"></label><br><br>
+                <label for="password">Password: <input type="password" name="password"></label><br><br>
+                <label for="confirm">Confirm Password: <input type="password" name="confirm"></label><br><br>
+                <input type="submit" value="Register">
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color:red">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <p><a href="/signin">Already have an account? Log in</a></p>
+        </div>
+    </body>
+</html>

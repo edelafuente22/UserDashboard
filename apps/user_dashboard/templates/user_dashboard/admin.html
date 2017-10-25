@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Admin Dashboard</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            table, th, td{
+                border: 1px solid black;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>All Users</h2>
+        <form action="/users/add" method='POST'>
+            {% csrf_token %}
+            <input type="submit" value="Add New User" />
+        </form>
+        <table>
+            <thead><td>ID</td><td>Name</td><td>Created At</td><td>Admin Level</td><td>Actions</td></thead>
+            {% for user in all_users %}
+                <tr><td>{{user.id}}</td><td>{{user.first_name}} {{user.last_name}}</td><td>{{user.created_at}}</td><td>{{user.admin}}</td><td><a href="/users/edit">Edit</a>&nbsp;&nbsp;&nbsp;<a href="/users/remove">Remove</a></td></tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

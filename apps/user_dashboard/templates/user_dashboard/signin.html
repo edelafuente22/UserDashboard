@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Sign-in Page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #topbar{
+                display: block;
+                border-bottom: black solid 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topbar">
+            <h1>Test App</h1>
+            <h4><a href="/">Home</a></h4>
+            <h4><a href="/signin">Sign In</a></h4>
+        </div>
+        <div id="login">
+            <h1>Login</h1>
+            <form action='/process_signin' method='POST'>
+                {% csrf_token %}
+                <label for="email">Email Address: <input type="email" name="email"></label><br><br>
+                <label for="password">Password: <input type="password" name="password"></label><br><br>
+                <input type="submit" value="Sign In">
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color:red">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            <p><a href="/register">Don't have an account? Register</a></p>
+        </div>
+    </body>
+</html>

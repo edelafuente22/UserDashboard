@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Test App | Home Page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #topbar{
+                display: block;
+                border-bottom: black solid 2px;
+            }
+            #main{
+                width: 1200px;
+                height: 300px;
+                padding: 10px;
+                display: block;
+                background-color: lightgray
+            }
+            .mod{
+                width: 350px;
+                height: 300px;
+                margin: 10px;
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topbar">
+            <h1>Test App</h1>
+            <h4><a href="/">Home</a></h4>
+            <h4><a href="/signin">Sign In</a></h4>
+        </div>
+        <div id="main">
+            <h1>Welcome to the Test</h1>
+            <h3>We're going to build a cool application using a MVC framework! This application was built with the Village88 folks!</h3>
+            <form action="/register" method='GET'>
+                <input type="submit" value="Start">
+            </form>
+        </div>
+        <div class="mod">
+            <h3>Manage Users</h3>
+            <p>Using this application, you'll learn how to add, remove and edit users for the application.</p>
+        </div>
+        <div class="mod">
+            <h3>Leave messages</h3>
+            <p>Users will be able to leave a message to another user using this application.</p>
+        </div>
+        <div class="mod">
+            <h3>Edit User Information</h3>
+            <p>Admins will be able to edit another user's information (email address, first name, last name, etc.).</p>
+        </div>
+    </body>
+</html>
