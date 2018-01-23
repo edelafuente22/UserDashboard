@@ -68,7 +68,8 @@ def show(request, id):
     context = {
         "current_user": User.objects.filter(id=request.session['id']),
         "show_user": User.objects.filter(id = id),
-        "messages": Message.objects.filter(receiver = id)
+        "messages": Message.objects.filter(receiver = id),
+        "comments": Comment.objects.filter(message = id)
     }
     return render(request, 'user_dashboard/show.html', context)
 
@@ -77,6 +78,14 @@ def process_message(request):
     receiver_id = User.objects.all().get(id = request.POST['receiver_id'])
     receiver = request.POST['receiver_id']
     message = Message.objects.create(content=request.POST['message_content'], sender=sender_id, receiver=receiver_id)
+    return redirect('/users/show/' + receiver)
+
+def process_comment(request):
+    commenter = User.objects.all().get(id = request.session['id'])
+    message_id = request.POST['message_id']
+    message = Message.objects.filter(id = message_id)
+    receiver = request.POST['receiver_id']
+    comment = Comment.objects.create(content=request.POST['comment_content'], message=message, commenter=commenter, receiver=receiver)
     return redirect('/users/show/' + receiver)
 
 def logout(request):

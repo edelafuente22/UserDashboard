@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^dashboard/admin$', views.admin),
     url(r'^users/show/(?P<id>\d+)$', views.show),
     url(r'^process_message$', views.process_message),
+    url(r'^process_comment$', views.process_comment),
     url(r'^logout$', views.logout)
 ]

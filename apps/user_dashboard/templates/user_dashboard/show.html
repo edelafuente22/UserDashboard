@@ -6,24 +6,28 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #comment{
+                margin-left: 20px;
+            }
+        </style> 
     </head>
     <body>
         <div id="topbar">
         {% for user in current_user %} 
-            <h3>Welcome, {{user.first_name}}, user No. {{user.id}}!</h3>
+            <h3>Welcome, {{user.first_name}}!</h3>
         <a href="/dashboard">Dashboard</a>
         <a href="/users/show/{{user.id}}">Profile</a>
         {% endfor %}
         <a href="/logout">Logout</a>
+        <hr>
         </div>
-        <div id="main">
+        <div id="message">
             {% for user in show_user %}
                 <h2>{{user.first_name}} {{user.last_name}}</h2>
-                <h4>Registered at: {{user.created_at}}</h4>
-                <h4>ID #: {{user.id}}</h4>
                 <h4>Email address: {{user.email}}</h4>
-            
-            <h2>Leave a message for {{user.first_name}}, ID {{user.id}}</h2>
+            <br>
+            <h3>Leave a message for {{user.first_name}}</h3>
             <form action='/process_message' method='POST'>
                 {% csrf_token %}
                 <textarea rows="6" cols="100" name="message_content"></textarea><br><br>
@@ -31,11 +35,38 @@
                 <input type="submit" value="Post">
             </form>
             {% endfor %}
-            {% for message in messages.all %}
-                <h4>{{message.sender.first_name}} {{message.sender.last_name}} whose ID #{{message.sender.id}} - to ID #{{message.receiver.id}} wrote:</h4>
+                {% for message in messages %}
+                <h4><a href="/users/show/{{message.sender.id}}">{{message.sender.first_name}} {{message.sender.last_name}}</a> whose ID #{{message.sender.id}} - to ID #{{message.receiver.id}} wrote:</h4>
                 <p>{{message.content}} - Message ID # {{message.id}}</p>
                 <h5>{{message.created_at}}</h5>
+                <form action='/process_comment' method='POST'>
+                    {% csrf_token %}
+                    <textarea rows="2" cols="80" name="comment_content"></textarea><br><br>
+                    <input type="hidden" name="message_id" value="{{comment.message.id}}">
+                     <input type="hidden" name="receiver_id" value="{{message.receiver.id}}"> 
+                    <input type="submit" value="Post">
+                </form>
             {% endfor %}
         </div>
+        
+            {% if comments %}
+                {% for comment in comments %}
+                    <div id="comment">
+                        <h4><a href="/users/show/{{comment.commenter.id}}">{{comment.commenter.first_name}} {{comment.commenter.last_name}}</a> whose ID #{{comment.commenter.id}} - on ID #{{comment.message.id}} wrote:</h4>
+                        <p>{{comment.content}} - Comment ID # {{comment.id}}</p>
+                        <h5>{{comment.created_at}}</h5>
+                        <form action='/process_comment' method='POST'>
+                            {% csrf_token %}
+                            <textarea rows="2" cols="80" name="comment_content"></textarea><br><br>
+                            <input type="hidden" name="message_id" value="{{comment.message.id}}">
+                             <input type="hidden" name="receiver_id" value="{{comment.message.receiver.id}}"> 
+                            <input type="submit" value="Post">
+                        </form>
+                    </div> 
+                {% endfor %}
+            {% endif %}
+            
+            
+                      
     </body>
 </html>

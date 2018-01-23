@@ -67,7 +67,7 @@ class Message(models.Model):
 
 class Comment(models.Model):
     content = models.CharField(max_length=255)
-    message = models.ForeignKey(Message, related_name="comments")
-    commenter = models.ForeignKey(User, related_name="comments_sent")
+    message = models.ForeignKey(Message, related_name="message_comment")
+    commenter = models.ForeignKey(User, related_name="commenter")
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
